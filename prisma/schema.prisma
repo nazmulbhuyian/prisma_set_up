@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Banner {
+  id        Int           @id @default(autoincrement())
+  title     String
+  path      String
+  paths     Json
+  pathssss  BannerImage[] // relation to multiple images
+  pathssssf String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("banners")
+}
+
+model BannerImage {
+  id       Int     @id @default(autoincrement())
+  url      String
+  alt      String
+  ref_id   Int
+  reTable  ReTable @relation(fields: [ref_id], references: [id])
+  bannerId Int
+  banner   Banner  @relation(fields: [bannerId], references: [id])
+
+  @@map("banner_images")
+}
+
+model ReTable {
+  id     Int           @id @default(autoincrement())
+  name   String
+  // other fields
+  images BannerImage[]
+}
