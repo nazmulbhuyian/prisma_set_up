@@ -82,7 +82,7 @@ const uploadToSpaces = async (file: any) => {
 
   const uploadParams = {
     Bucket: SpaceName,
-    Key: `bus_hotel_booking_image/${file.filename}`,
+    Key: `prisma_set_up_image/${file.filename}`,
     Body: fileStream,
     ACL: "public-read" as ObjectCannedACL,
     ContentType: contentType,
@@ -149,7 +149,7 @@ const VideoUploader = async (file: any) => {
 
   const uploadParams = {
     Bucket: SpaceName,
-    Key: `bus_hotel_booking_video/${file.filename}`,
+    Key: `prisma_set_up_video/${file.filename}`,
     Body: fileStream,
     ACL: "public-read" as ObjectCannedACL,
   };

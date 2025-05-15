@@ -1,15 +1,18 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
-import cors from 'cors';
 import router from './routes/routes';
 import globalErrorHandler from './middlewares/global.error.handler';
+import customCors from './middlewares/customCors';
+const cookieParser = require("cookie-parser");
 
 const app: Application = express();
-app.use(cors());
 
-//parser
+// Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
+// ✅ Custom CORS middleware (must be before all routes)
+app.use(customCors);
 
 app.get('/', (req: Request, res: Response) => {
     res.send({
